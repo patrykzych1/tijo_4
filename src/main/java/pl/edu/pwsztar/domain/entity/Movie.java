@@ -18,6 +18,9 @@ public class Movie implements Serializable {
     @Column(name = "image")
     private String image;
 
+    @Column(name = "year")
+    private Integer year;
+
     public Movie() {
     }
 
@@ -43,5 +46,13 @@ public class Movie implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
     }
 }
