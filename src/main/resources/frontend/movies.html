@@ -19,7 +19,7 @@
   				html += '<h3>' + value.title + '</h3>';
   				html += '<p class="title">Rok produkcji</p>';
   				html += '<p>' + (value.year === undefined ? "????" : value.year) + '</p>';
-				html += '<p><button>ID: ' + value.movieId + '</button></p>';
+				html += '<p><button onclick="deleteMovie(' + value.movieId + ')">ID: ' + value.movieId + '</button></p>';
 				html += '</div>';
         	});
 
@@ -27,6 +27,21 @@
 		}).fail(function() {
 		    $('#movies').html("<div style='text-align: center; color: red;'>Mam problem z wyświetleniem danych... :/ (musisz uruchomić aplikacje za pomocą MAVEN)</div>");
 		});
+
+		function deleteMovie(id){
+
+            location.reload();
+		    $.ajax({
+				url: 'http://127.0.0.1:8080/api/movies/delete/'+id+'',
+				type: 'delete',
+
+                success: function (data) {
+                    console.log('data: ', data);
+                }
+			});
+
+
+		}
 
 		function isImage(url) {
             return url.indexOf(".jpg") !== -1 || url.indexOf(".png") !== -1;
@@ -39,8 +54,9 @@
         $(document).ready(function() {
             $('#add-movie').click(function() {
                 window.location.href='add-movie.html';
-            })
+            });
         });
+
 
 		</script>
 

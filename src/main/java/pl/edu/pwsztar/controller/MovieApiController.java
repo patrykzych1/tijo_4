@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pwsztar.domain.dto.CreateMovieDto;
 import pl.edu.pwsztar.domain.dto.MovieDto;
-import pl.edu.pwsztar.service.MovieService;
 
+import pl.edu.pwsztar.service.MovieService;
 import java.util.List;
 
 @Controller
@@ -21,6 +21,7 @@ public class MovieApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MovieApiController.class);
 
     private final MovieService movieService;
+
 
     @Autowired
     public MovieApiController(MovieService movieService) {
@@ -36,15 +37,32 @@ public class MovieApiController {
         return new ResponseEntity<>(moviesDto, HttpStatus.OK);
     }
 
+
     @CrossOrigin
     @PostMapping(value = "/movies", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> createMovie(@RequestBody CreateMovieDto createMovieDto) {
         LOGGER.info("create movie: {}", createMovieDto);
 
-
-
         movieService.createMovie(createMovieDto);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @DeleteMapping(value = "/movies/delete/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> deleteMovie(@PathVariable String id) {
+        MovieDto movieDto = movieService.getOne(Long.parseLong(id));
+        LOGGER.info("delete movie: {}", movieDto);
+
+        movieService.deleteMovie(movieDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "movies/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<MovieDto> getMovie(@PathVariable String id) {
+        MovieDto movieDto = movieService.getOne(Long.parseLong(id));
+
+        return new ResponseEntity<>(movieDto, HttpStatus.OK);
     }
 }
