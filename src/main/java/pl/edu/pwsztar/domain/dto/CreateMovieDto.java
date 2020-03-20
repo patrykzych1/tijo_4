@@ -22,6 +22,7 @@ public class CreateMovieDto implements Serializable {
         return year;
     }
 
+
     @Override
     public String toString() {
         return "CreateMovieDto{" +
