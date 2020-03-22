@@ -8,8 +8,8 @@ import java.util.List;
 public interface MovieService {
 
     List<MovieDto> findAll();
-    MovieDto getOne(Long id);
 
-    void deleteMovie(MovieDto movieDto);
+
+    void deleteMovie(Long id);
     void createMovie(CreateMovieDto createMovieDto);
 }

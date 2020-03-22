@@ -50,19 +50,10 @@ public class MovieApiController {
 
     @CrossOrigin
     @DeleteMapping(value = "/movies/delete/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> deleteMovie(@PathVariable String id) {
-        MovieDto movieDto = movieService.getOne(Long.parseLong(id));
-        LOGGER.info("delete movie: {}", movieDto);
+    public ResponseEntity<?> deleteMovie(@PathVariable Long id) {
 
-        movieService.deleteMovie(movieDto);
+        movieService.deleteMovie(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @CrossOrigin
-    @GetMapping(value = "movies/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<MovieDto> getMovie(@PathVariable String id) {
-        MovieDto movieDto = movieService.getOne(Long.parseLong(id));
-
-        return new ResponseEntity<>(movieDto, HttpStatus.OK);
-    }
 }
