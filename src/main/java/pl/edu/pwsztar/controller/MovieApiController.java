@@ -45,7 +45,7 @@ public class MovieApiController {
 
         movieService.createMovie(createMovieDto);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @CrossOrigin
